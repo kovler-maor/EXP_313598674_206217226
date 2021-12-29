@@ -2,7 +2,7 @@ public class GraphNode {
     public int key;
     public int outDegree;
     public int inDegree;
-    public int intds;
+
 
     public GraphNode(int key){
         this.key = key;
