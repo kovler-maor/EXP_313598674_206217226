@@ -1,10 +1,10 @@
 public class DynamicGraph
 {
-    // Linked list  of nodes
+    //Linked list  of nodes
     public GraphNode HeadNode;
     public GraphNode TailNode;
 
-    // Linked list  of edges
+    //Linked list  of edges
     public GraphEdge HeadEdge;
     public GraphEdge TailEdge;
 

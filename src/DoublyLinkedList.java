@@ -1,7 +1,8 @@
 public class DoublyLinkedList
 {
-     public LinkedListNode head;
-     public LinkedListNode tail;
+     public T head;
+     public T tail;
+     public int amountOfNodes;
      public int amountOfNodes;
 
 
