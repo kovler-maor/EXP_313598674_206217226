@@ -107,14 +107,55 @@ public class DynamicGraph
         }
     }
 
-
-    public Stack dfs(DynamicGraph G)
+    // We still don't know what it returns
+    public void dfs()
     {
+        GraphNode currentVertex = this.HeadNode;
+        for(int i = 0; i < this.NumberOfNodes; i++)
+        {
+            currentVertex.color = 0;
+            currentVertex.parent = null;
+            currentVertex = currentVertex.nextNode;
+        }
+
+        int time = 0;
+        currentVertex = this.HeadNode;
+        for(int i = 0; i < this.NumberOfNodes; i++)
+        {
+            if(currentVertex.color == 0)
+            {
+                dfs_visit(currentVertex, time);
+            }
+            currentVertex = currentVertex.nextNode;
+        }
+    }
+
+    public void dfs_visit(GraphNode currentVertex , int time)
+    {
+        time ++;
+        currentVertex.discoveryTime = time;
+        currentVertex.color = 1;
+        LinkedListNode currentAdjacencyVertex = currentVertex.adjacencyList.head;
+        for (int i = 0; i < currentVertex.adjacencyList.amountOfNodes; i++)
+        {
+            if(currentAdjacencyVertex.graphNode.color == 0)
+            {
+                currentAdjacencyVertex.graphNode.parent = currentVertex;
+                dfs_visit(currentAdjacencyVertex.graphNode,time);
+            }
+            currentAdjacencyVertex = currentAdjacencyVertex.next;
+        }
+        currentVertex.color = 2;
+        time++;
+        currentVertex.finalTime = time;
 
     }
 
     public RootedTree scc()
     {
+        dfs();
+        TransposeGraph();
+        dfs();
 
     }
 
