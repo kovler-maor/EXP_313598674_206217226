@@ -3,10 +3,9 @@
 * need to ask Or what he thinks about it*/
 
 
-public class LinkedListNode <T>
+public class LinkedListNode
     {
-    public T head;
-    public T tail;
+    public GraphNode graphNode;
     public LinkedListNode next;
     public LinkedListNode prev;
 

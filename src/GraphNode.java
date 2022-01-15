@@ -3,12 +3,8 @@ public class GraphNode {
     public int outDegree;
     public int inDegree;
     public DoublyLinkedList adjacencyList;
-    public int color;
-    public int discoveryTime;
-    public int finalTime;
-    public GraphNode parent;
-    public GraphNode prevNode; //previous graph node in dynamic graph
-    public GraphNode nextNode; // next graph node in dynamic graph
+//    public GraphNode prevNode; //previous graph node in dynamic graph
+//    public GraphNode nextNode; // next graph node in dynamic graph
 //    public Queue QAdjList;
 //    public Stack SAdjList;
 
