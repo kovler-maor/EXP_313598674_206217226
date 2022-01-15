@@ -3,10 +3,13 @@ public class GraphNode {
     public int outDegree;
     public int inDegree;
     public DoublyLinkedList adjacencyList;
-//    public GraphNode prevNode; //previous graph node in dynamic graph
-//    public GraphNode nextNode; // next graph node in dynamic graph
-//    public Queue QAdjList;
-//    public Stack SAdjList;
+    public GraphNode prevNode; //previous graph node in dynamic graph
+    public GraphNode nextNode; // next graph node in dynamic graph
+    public int color;
+    public GraphNode parent;
+    public int discoveryTime;
+    public int finalTime;
+
 
 
 
@@ -15,12 +18,22 @@ public class GraphNode {
         this.outDegree = 0;
         this.inDegree = 0;
         this.adjacencyList = new DoublyLinkedList();
-//        this.nextNode = null;
-//        this.prevNode = null;
-////        this.QAdjList = new Queue();
-////        this.SAdjList = new Stack();
-////        this.color = 0;
+        this.nextNode = null;
+        this.prevNode = null;
 
 
+
+    }
+
+    public int getOutDegree() {
+        return outDegree;
+    }
+
+    public int getInDegree() {
+        return inDegree;
+    }
+
+    public int getKey() {
+        return key;
     }
 }

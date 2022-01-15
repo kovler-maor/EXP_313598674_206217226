@@ -12,6 +12,8 @@ public class DynamicGraph
     public  int NumberOfNodes;
     public int NumberOfEdges;
 
+    public Stack stack;
+
     // Constructor
     public DynamicGraph()
     {
@@ -107,14 +109,48 @@ public class DynamicGraph
         }
     }
 
+    public void dfs_visit(GraphNode graphNode, int time){
+        time++;
+        graphNode.discoveryTime = time;
+        graphNode.color = 1;
+        LinkedListNode currentNode = graphNode.adjacencyList.head;
+        for(int i = 0; i < graphNode.adjacencyList.numberOfNodesInList; i++){
+            if(currentNode.graphNode.color == 0){
+                currentNode.graphNode.parent = graphNode;
+                dfs_visit(currentNode.graphNode, time);
+            }
+            currentNode = currentNode.next;
+        }
+        graphNode.color = 2;
+        this.stack.Push(new LinkedListNode(graphNode));
+        time++;
+        graphNode.finalTime = time;
 
-    public Stack dfs(DynamicGraph G)
+    }
+    public void  dfs()
     {
+        GraphNode currentNode = this.TailNode;
+        for(int i = 0; i < this.NumberOfNodes; i++){
+            currentNode.color = 0;
+            currentNode.parent = null;
+            currentNode = currentNode.prevNode;
+        }
+        int time = 0 ;
+        currentNode = this.TailNode;
+        for(int i = 0; i < this.NumberOfNodes; i++){
+            if(currentNode.color == 0){
+                dfs_visit(currentNode,time);
+            }
+        }
+
+
+
 
     }
 
     public RootedTree scc()
     {
+
 
     }
 
