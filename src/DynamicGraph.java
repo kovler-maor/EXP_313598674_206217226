@@ -1,12 +1,20 @@
-public class DynamicGraph {
+public class DynamicGraph
+{
+    // Linked list  of nodes
     public GraphNode HeadNode;
     public GraphNode TailNode;
+
+    // Linked list  of edges
     public GraphEdge HeadEdge;
     public GraphEdge TailEdge;
+
+    // Counters of nodes and edges
     public  int NumberOfNodes;
     public int NumberOfEdges;
 
-    public DynamicGraph() {
+    // Constructor
+    public DynamicGraph()
+    {
         this.HeadNode = null;
         this.TailNode = null;
         this.HeadEdge = null;
@@ -16,11 +24,15 @@ public class DynamicGraph {
 
     }
 
-    public GraphNode insertNode(int nodeKey) {
+    // Insertion of node
+    public GraphNode insertNode(int nodeKey)
+    {
         GraphNode node = new GraphNode(nodeKey);
-        if(this.HeadNode == null) {
+        if(this.HeadNode == null)
+        {
             this.HeadNode = node;
-        } else {
+        } else
+        {
             this.TailNode.nextNode = node;
             node.prevNode = this.TailNode;
         }
@@ -29,8 +41,12 @@ public class DynamicGraph {
         return node;
     }
 
-    public void deleteNode(GraphNode node) {
-        if (node.outDegree == 0 && node.inDegree == 0) {
+
+    //Deletion of node
+    public void deleteNode(GraphNode node)
+    {
+        if (node.outDegree == 0 && node.inDegree == 0)
+        {
             node.prevNode.nextNode = node.nextNode;
             node.nextNode.prevNode = node.prevNode;
             this.NumberOfNodes--;
@@ -38,11 +54,15 @@ public class DynamicGraph {
 
     }
 
-    public GraphEdge insertEdge(GraphNode from, GraphNode to) {
+    // Insertion of edge
+    public GraphEdge insertEdge(GraphNode from, GraphNode to)
+    {
         GraphEdge edge = new GraphEdge(from, to);
-        if (this.HeadEdge == null) {
+        if (this.HeadEdge == null)
+        {
             this.HeadEdge = edge;
-        } else {
+        } else
+        {
             this.TailEdge.nextEdge = edge;
             edge.prevEdge = this.TailEdge;
             this.TailEdge = edge;
@@ -53,31 +73,56 @@ public class DynamicGraph {
 
     }
 
-    public void deleteEdge(GraphEdge edge) {
+    //Deletion of edge
+    public void deleteEdge(GraphEdge edge)
+    {
         edge.prevEdge.nextEdge = edge.nextEdge;
         edge.nextEdge.prevEdge = edge.prevEdge;
         this.NumberOfEdges--;
 
     }
-    public GraphNode[] createAdjacencyList(){
-        GraphNode[][] adjList = new GraphNode[this.NumberOfNodes][this.NumberOfNodes
-                ];
-        for(int i = 0; i < this.NumberOfEdges; i++){
 
 
+    // A function that builds for every vertx in the graph adjacency list
+    // which is represented by a doubly linked list
+    public void CreateLinkedListForNode()
+    {
+        GraphEdge currentEdge = this.HeadEdge;
+        for(int i = 0; i < this.NumberOfEdges; i++)
+        {
+            //Go to the "from node" of the current edge and add to its adjacency list the "to node"
+            currentEdge.fromNode.adjacencyList.AddNode(new LinkedListNode(currentEdge.toNode));
         }
     }
 
-    public RootedTree scc() {
+    // Transposing the graph for scc
+    public void TransposeGraph()
+    {
+        GraphEdge currentEdge = this.HeadEdge;
+        for(int i = 0; i < this.NumberOfEdges; i++)
+        {
+            GraphNode temp = currentEdge.fromNode;
+            currentEdge.fromNode = currentEdge.toNode;
+            currentEdge.toNode = temp;
+        }
+    }
+
+
+    public Stack dfs(DynamicGraph G)
+    {
 
     }
 
-    public RootedTree bfs(GraphNode source) {
+    public RootedTree scc()
+    {
 
     }
 
-    public void Dfs(DynamicGraph G) {
+    public RootedTree bfs(GraphNode source)
+    {
 
     }
+
+
 
 }
