@@ -33,7 +33,7 @@ public class Stack
 
     public boolean IsEmpty()
     {
-        return !(this.top == null);
+        return (this.top == null);
 
     }
 

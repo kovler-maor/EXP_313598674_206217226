@@ -60,15 +60,18 @@ public class DynamicGraph
     public GraphEdge insertEdge(GraphNode from, GraphNode to)
     {
         GraphEdge edge = new GraphEdge(from, to);
+        from.adjacencyList.AddNode(new LinkedListNode(to));
         if (this.HeadEdge == null)
         {
             this.HeadEdge = edge;
-        } else
+        }
+        else
         {
             this.TailEdge.nextEdge = edge;
             edge.prevEdge = this.TailEdge;
-            this.TailEdge = edge;
         }
+        this.TailEdge = edge;
+
         this.NumberOfEdges++;
         return edge;
 
@@ -142,19 +145,25 @@ public class DynamicGraph
                 dfs_visit(currentNode,time);
             }
         }
-
-
-
-
     }
 
-    public RootedTree scc()
+
+
+
+
+    public void scc()
     {
+        dfs();
+        TransposeGraph();
+        while (!stack.IsEmpty()){
+
+        }
+
 
 
     }
 
-    public RootedTree bfs(GraphNode source)
+    public void bfs(GraphNode source)
     {
 
     }

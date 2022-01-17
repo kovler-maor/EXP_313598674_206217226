@@ -1,4 +1,4 @@
-/*Creating from graphnode a new object that contains a new object with the graphnode and a pointer to the next on
+/*Creating from graph node a new object that contains a new object with the graph node and a pointer to the next on
 * good for creating queues and stacks
 * need to ask Or what he thinks about it*/
 
@@ -13,6 +13,7 @@ public class LinkedListNode
     {
         this.graphNode = node;
         this.next = null;
+        this.prev = null;
     }
 
 

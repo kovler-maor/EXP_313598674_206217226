@@ -25,4 +25,12 @@ public class DoublyLinkedList
          this.tail = node;
          this.numberOfNodesInList ++;
      }
+
+     public void DeleteNode(LinkedListNode node)
+     {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        this.numberOfNodesInList --;
+     }
+
 }
