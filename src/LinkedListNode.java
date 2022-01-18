@@ -3,18 +3,19 @@
 * need to ask Or what he thinks about it*/
 
 
-public class LinkedListNode
+public class LinkedListNode<T>
     {
-    public GraphNode graphNode;
+    public T data;
     public LinkedListNode next;
     public LinkedListNode prev;
 
-    public LinkedListNode(GraphNode node)
+    public LinkedListNode(T data)
     {
-        this.graphNode = node;
+        this.data = data;
         this.next = null;
         this.prev = null;
     }
+
 
 
 

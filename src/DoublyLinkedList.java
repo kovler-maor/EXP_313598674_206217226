@@ -11,6 +11,12 @@ public class DoublyLinkedList
          this.tail = null;
          this.numberOfNodesInList = 0;
      }
+     public void EmptyList()
+     {
+         this.head = null;
+         this.tail = null;
+         this.numberOfNodesInList = 0;
+     }
 
      public void AddNode(LinkedListNode node)
      {

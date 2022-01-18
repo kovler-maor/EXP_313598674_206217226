@@ -23,6 +23,7 @@ public class DynamicGraph
         this.TailEdge = null;
         this.NumberOfEdges = 0;
         this.NumberOfNodes = 0;
+        this.stack = new Stack();
 
     }
 
@@ -60,7 +61,6 @@ public class DynamicGraph
     public GraphEdge insertEdge(GraphNode from, GraphNode to)
     {
         GraphEdge edge = new GraphEdge(from, to);
-        from.adjacencyList.AddNode(new LinkedListNode(to));
         if (this.HeadEdge == null)
         {
             this.HeadEdge = edge;
@@ -92,11 +92,18 @@ public class DynamicGraph
     // which is represented by a doubly linked list
     public void CreateLinkedListForNode()
     {
+        GraphNode currentNode = this.HeadNode;
+        for(int i = 0; i < this.NumberOfNodes; i++)
+        {
+            currentNode.adjacencyList.EmptyList();
+            currentNode = currentNode.nextNode;
+        }
         GraphEdge currentEdge = this.HeadEdge;
         for(int i = 0; i < this.NumberOfEdges; i++)
         {
             //Go to the "from node" of the current edge and add to its adjacency list the "to node"
             currentEdge.fromNode.adjacencyList.AddNode(new LinkedListNode(currentEdge.toNode));
+            currentEdge = currentEdge.nextEdge;
         }
     }
 
@@ -109,42 +116,82 @@ public class DynamicGraph
             GraphNode temp = currentEdge.fromNode;
             currentEdge.fromNode = currentEdge.toNode;
             currentEdge.toNode = temp;
+            currentEdge = currentEdge.nextEdge;
         }
     }
 
-    public void dfs_visit(GraphNode graphNode, int time){
-        time++;
-        graphNode.discoveryTime = time;
+    public void dfs_visit(GraphNode graphNode){
         graphNode.color = 1;
         LinkedListNode currentNode = graphNode.adjacencyList.head;
         for(int i = 0; i < graphNode.adjacencyList.numberOfNodesInList; i++){
             if(currentNode.graphNode.color == 0){
                 currentNode.graphNode.parent = graphNode;
-                dfs_visit(currentNode.graphNode, time);
+                dfs_visit(currentNode.graphNode);
             }
             currentNode = currentNode.next;
         }
         graphNode.color = 2;
         this.stack.Push(new LinkedListNode(graphNode));
-        time++;
-        graphNode.finalTime = time;
 
     }
     public void  dfs()
     {
+        CreateLinkedListForNode();
         GraphNode currentNode = this.TailNode;
+
+        // Initialization of nodes.
+        if(!stack.IsEmpty()){
+            this.stack.EmptyStack();
+        }
         for(int i = 0; i < this.NumberOfNodes; i++){
             currentNode.color = 0;
             currentNode.parent = null;
             currentNode = currentNode.prevNode;
         }
-        int time = 0 ;
+
         currentNode = this.TailNode;
         for(int i = 0; i < this.NumberOfNodes; i++){
             if(currentNode.color == 0){
-                dfs_visit(currentNode,time);
+                dfs_visit(currentNode);
             }
+            currentNode = currentNode.prevNode;
         }
+    }
+
+
+    public void dfs2()
+    {
+        CreateLinkedListForNode();
+        GraphNode currentNode = this.TailNode;
+
+        // Initialization of nodes.
+        for(int i = 0; i < this.NumberOfNodes; i++){
+            currentNode.color = 0;
+            currentNode.parent = null;
+            currentNode = currentNode.prevNode;
+        }
+
+        currentNode = this.stack.top.graphNode;
+        for(int i = 0; i < this.NumberOfNodes; i++){
+            if(currentNode.color == 0){
+                dfs_visit2(currentNode);
+            }
+            currentNode = currentNode.prevNode;
+        }
+    }
+    public void dfs_visit2(GraphNode graphNode){
+        graphNode.color = 1;
+        LinkedListNode currentNode = graphNode.adjacencyList.head;
+        for(int i = 0; i < graphNode.adjacencyList.numberOfNodesInList; i++){
+            if(currentNode.graphNode.color == 0){
+                currentNode.graphNode.parent = graphNode;
+                dfs_visit2(currentNode.graphNode);
+            }
+            this.stack.Pop();
+            currentNode = currentNode.next;
+        }
+        graphNode.color = 2;
+        this.stack.Push(new LinkedListNode(graphNode));
     }
 
 

@@ -12,7 +12,7 @@ public class tests {
         dynamicGraph.insertEdge(nodesArray[1],nodesArray[2]);
         dynamicGraph.insertEdge(nodesArray[2],nodesArray[3]);
         dynamicGraph.insertEdge(nodesArray[3],nodesArray[0]);
-        dynamicGraph.insertEdge(nodesArray[3],nodesArray[4]);
+        dynamicGraph.insertEdge(nodesArray[3],nodesArray[4]);               
         dynamicGraph.insertEdge(nodesArray[4],nodesArray[5]);
         dynamicGraph.insertEdge(nodesArray[5],nodesArray[6]);
         dynamicGraph.insertEdge(nodesArray[6],nodesArray[4]);
@@ -36,8 +36,13 @@ public class tests {
             }
             currentGraphNode = currentGraphNode.nextNode;
             System.out.println();
-
         }
+        dynamicGraph.dfs();
+        System.out.print("");
+        dynamicGraph.TransposeGraph();
+        dynamicGraph.dfs();
+        System.out.print("");
+
     }
 
 }
