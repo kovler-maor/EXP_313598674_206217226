@@ -14,6 +14,8 @@ public class DynamicGraph
 
     public Stack stack;
 
+    public DoublyLinkedListOfDoublyLinkedListNode scc_list;
+
     // Constructor
     public DynamicGraph()
     {
@@ -24,6 +26,7 @@ public class DynamicGraph
         this.NumberOfEdges = 0;
         this.NumberOfNodes = 0;
         this.stack = new Stack();
+        this.scc_list = new DoublyLinkedListOfDoublyLinkedListNode();
 
     }
 
@@ -123,13 +126,16 @@ public class DynamicGraph
     public void dfs_visit(GraphNode graphNode){
         graphNode.color = 1;
         LinkedListNode currentNode = graphNode.adjacencyList.head;
-        for(int i = 0; i < graphNode.adjacencyList.numberOfNodesInList; i++){
-            if(currentNode.graphNode.color == 0){
-                currentNode.graphNode.parent = graphNode;
-                dfs_visit(currentNode.graphNode);
+        if (currentNode != null)
+        {
+            for(int i = 0; i < graphNode.adjacencyList.numberOfNodesInList; i++){
+                if(currentNode.graphNode.color == 0){
+                    dfs_visit(currentNode.graphNode);
+                }
+                currentNode = currentNode.next;
             }
-            currentNode = currentNode.next;
         }
+
         graphNode.color = 2;
         this.stack.Push(new LinkedListNode(graphNode));
 
@@ -174,24 +180,31 @@ public class DynamicGraph
         currentNode = this.stack.top.graphNode;
         for(int i = 0; i < this.NumberOfNodes; i++){
             if(currentNode.color == 0){
-                dfs_visit2(currentNode);
+                LinkedListNodeOfLinkedLists currentScc = new LinkedListNodeOfLinkedLists(new DoublyLinkedList());
+                currentScc.doublyLinkedList.AddNode(new LinkedListNode(currentNode));
+                dfs_visit2(currentNode , currentScc);
+                this.scc_list.AddNode(currentScc);
             }
-            currentNode = currentNode.prevNode;
+            this.stack.Pop();
+            if(!stack.IsEmpty())
+            {
+                currentNode = this.stack.top.graphNode;
+            }
+
         }
     }
-    public void dfs_visit2(GraphNode graphNode){
+    public void dfs_visit2(GraphNode graphNode,LinkedListNodeOfLinkedLists currentScc){
         graphNode.color = 1;
         LinkedListNode currentNode = graphNode.adjacencyList.head;
         for(int i = 0; i < graphNode.adjacencyList.numberOfNodesInList; i++){
             if(currentNode.graphNode.color == 0){
-                currentNode.graphNode.parent = graphNode;
-                dfs_visit2(currentNode.graphNode);
+                currentScc.doublyLinkedList.AddNode(new LinkedListNode(currentNode.graphNode));
+                dfs_visit2(currentNode.graphNode,currentScc);
             }
-            this.stack.Pop();
             currentNode = currentNode.next;
         }
         graphNode.color = 2;
-        this.stack.Push(new LinkedListNode(graphNode));
+
     }
 
 
@@ -202,12 +215,7 @@ public class DynamicGraph
     {
         dfs();
         TransposeGraph();
-        while (!stack.IsEmpty()){
-
-        }
-
-
-
+        dfs2();
     }
 
     public void bfs(GraphNode source)

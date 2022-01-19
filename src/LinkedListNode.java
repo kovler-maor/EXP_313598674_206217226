@@ -3,15 +3,15 @@
 * need to ask Or what he thinks about it*/
 
 
-public class LinkedListNode<T>
+public class LinkedListNode
     {
-    public T data;
+    public GraphNode graphNode;
     public LinkedListNode next;
     public LinkedListNode prev;
 
-    public LinkedListNode(T data)
+    public LinkedListNode(GraphNode node)
     {
-        this.data = data;
+        this.graphNode = node;
         this.next = null;
         this.prev = null;
     }
