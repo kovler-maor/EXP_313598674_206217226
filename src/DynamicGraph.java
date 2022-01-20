@@ -13,8 +13,11 @@ public class DynamicGraph
     public int NumberOfEdges;
 
     public Stack stack;
+    public Queue queue;
 
     public DoublyLinkedListOfDoublyLinkedListNode scc_list;
+
+    public DoublyLinkedListOfDoublyLinkedListNode bfs_list;
 
     // Constructor
     public DynamicGraph()
@@ -26,6 +29,7 @@ public class DynamicGraph
         this.NumberOfEdges = 0;
         this.NumberOfNodes = 0;
         this.stack = new Stack();
+        this.queue = new Queue();
         this.scc_list = new DoublyLinkedListOfDoublyLinkedListNode();
 
     }
@@ -95,18 +99,19 @@ public class DynamicGraph
     // which is represented by a doubly linked list
     public void CreateLinkedListForNode()
     {
-        GraphNode currentNode = this.HeadNode;
+        GraphNode currentNode = this.TailNode;
         for(int i = 0; i < this.NumberOfNodes; i++)
         {
             currentNode.adjacencyList.EmptyList();
-            currentNode = currentNode.nextNode;
+            currentNode = currentNode.prevNode;
         }
-        GraphEdge currentEdge = this.HeadEdge;
+
+        GraphEdge currentEdge = this.TailEdge;
         for(int i = 0; i < this.NumberOfEdges; i++)
         {
             //Go to the "from node" of the current edge and add to its adjacency list the "to node"
             currentEdge.fromNode.adjacencyList.AddNode(new LinkedListNode(currentEdge.toNode));
-            currentEdge = currentEdge.nextEdge;
+            currentEdge = currentEdge.prevEdge;
         }
     }
 
@@ -216,12 +221,66 @@ public class DynamicGraph
         dfs();
         TransposeGraph();
         dfs2();
+        RootedTree dfs_rootedTree = new RootedTree();
+        dfs_rootedTree.root = new TreeNode(new GraphNode(0));
+        for (int i = 0; i < this.scc_list.numberOfNodesInList; i++)
+        {
+
+        }
     }
 
-    public void bfs(GraphNode source)
+    public RootedTree bfs(GraphNode source)
     {
+        RootedTree bfsTree = new RootedTree();
+        TreeNode currentTreeNode = new TreeNode(source);
+        source.treeNode = currentTreeNode;
+        bfsTree.root = currentTreeNode;
+        // Start of initialization
+        CreateLinkedListForNode();
+        GraphNode currentNode = this.TailNode;
+
+        if(!this.queue.IsEmpty()){
+            this.queue.EmptyQueue();
+        }
+        for(int i = 0; i < this.NumberOfNodes; i++){
+            currentNode.color = 0;
+            currentNode.parent = null;
+            currentNode.distance = -1;
+            currentNode.treeNode = null;
+            currentNode = currentNode.prevNode;
+        }
+        source.color = 1;
+        source.distance = 0;
+        this.queue.Enqueue(new QueueNode(source));
+
+
+        // End of initialization
+
+
+        while (!this.queue.IsEmpty()){
+            GraphNode current_node = this.queue.Dequeue().value;
+            LinkedListNode current_neighbor = current_node.adjacencyList.head;
+            for (int i = 0; i < current_node.adjacencyList.numberOfNodesInList; i++){
+                if(current_neighbor.graphNode.color == 0){
+                    current_neighbor.graphNode.treeNode = new TreeNode(current_neighbor.graphNode);
+                    currentTreeNode.AddChild(current_neighbor.graphNode.treeNode);
+                    current_neighbor.graphNode.color = 1;
+                    queue.Enqueue(new QueueNode(current_neighbor.graphNode));
+                }
+                current_neighbor = current_neighbor.next;
+            }
+            if(!this.queue.IsEmpty()){
+                currentTreeNode = this.queue.Head.value.treeNode;
+            }
+
+
+
+        }
+        return bfsTree;
 
     }
+
+
 
 
 

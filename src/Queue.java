@@ -1,8 +1,8 @@
 /*Implementation of Queue*/
 public class Queue
 {
-    public LinkedListNode Head;
-    public LinkedListNode Tail;
+    public QueueNode Head;
+    public QueueNode Tail;
 
     // Constructor
     Queue()
@@ -12,26 +12,31 @@ public class Queue
     }
 
     // Enqueqe - putting new nodes in the queue
-    public void Enqueue(LinkedListNode node)
+    public void Enqueue(QueueNode node)
     {
         if(this.Tail == null)
         {
-            this.Tail = node;
+            this.Head = node;
         }
-        this.Head = node;
+        else
+        {
+            this.Tail.prev = node;
+            node.next = this.Tail;
+        }
+        this.Tail = node;
+
 
     }
 
 
     //Deqeue - getting nodes out of the queue
-    public LinkedListNode Dequeue()
+    public QueueNode Dequeue()
     {
-        // don't know if it will work!!!??
         if(this.Head == null){
             throw new ArrayIndexOutOfBoundsException("Cannot dequeue! Queue is empty.");
         }
-        LinkedListNode temp = this.Head;
-        this.Head = this.Head.next;
+        QueueNode temp = this.Head;
+        this.Head = this.Head.prev;
         if(this.Head == null){
             this.Tail = null;
         }
@@ -46,7 +51,14 @@ public class Queue
         this.Tail = null;
 
     }
-
+    public boolean IsEmpty()
+    {
+        if(Head == null && Tail == null)
+        {
+            return true;
+        }
+        return false;
+    }
 
 
 }

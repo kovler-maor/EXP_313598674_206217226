@@ -34,9 +34,18 @@ public class tests {
 //        dynamicGraph.insertEdge(nodesArray[3],nodesArray[2]);
 //        dynamicGraph.insertEdge(nodesArray[4],nodesArray[5]);
 //        dynamicGraph.insertEdge(nodesArray[5],nodesArray[4]);
+// test 4
+        dynamicGraph.insertEdge(nodesArray[0],nodesArray[1]);
+        dynamicGraph.insertEdge(nodesArray[2],nodesArray[1]);
+        dynamicGraph.insertEdge(nodesArray[0],nodesArray[2]);
+        dynamicGraph.insertEdge(nodesArray[1],nodesArray[3]);
+        dynamicGraph.insertEdge(nodesArray[2],nodesArray[5]);
+        dynamicGraph.insertEdge(nodesArray[2],nodesArray[6]);
+        dynamicGraph.insertEdge(nodesArray[2],nodesArray[3]);
+        dynamicGraph.insertEdge(nodesArray[6],nodesArray[4]);
 
 
-
+        // Adjacency lists
         GraphNode currentGraphNode = dynamicGraph.HeadNode;
         for(int i = 1; i < dynamicGraph.NumberOfNodes + 1; i++){
             System.out.println("Node number " + i + " key is: " + currentGraphNode.key);
@@ -63,27 +72,32 @@ public class tests {
 //        dynamicGraph.dfs();
 //        System.out.print("");
 
-
-        dynamicGraph.scc();
-        LinkedListNodeOfLinkedLists current_component = dynamicGraph.scc_list.head;
-        for (int i = 1; i<dynamicGraph.scc_list.numberOfNodesInList+1; i++)
-        {
-            LinkedListNode currentNode = current_component.doublyLinkedList.head;
-            System.out.println("Strongly connected component #" + i + " :");
-            for(int j = 0; j<current_component.doublyLinkedList.numberOfNodesInList;j++)
-            {
-                if(j == current_component.doublyLinkedList.numberOfNodesInList-1)
-                {
-                    System.out.println(currentNode.graphNode.key);
-                }
-                else
-                {
-                    System.out.print(currentNode.graphNode.key + "--> ");
-                }
-                currentNode = currentNode.next;
-            }
-            current_component = current_component.next;
+//         scc test
+//        dynamicGraph.scc();
+//        LinkedListNodeOfLinkedLists current_component = dynamicGraph.scc_list.head;
+//        for (int i = 1; i<dynamicGraph.scc_list.numberOfNodesInList+1; i++)
+//        {
+//            LinkedListNode currentNode = current_component.doublyLinkedList.head;
+//            System.out.println("Strongly connected component #" + i + " :");
+//            for(int j = 0; j<current_component.doublyLinkedList.numberOfNodesInList;j++)
+//            {
+//                if(j == current_component.doublyLinkedList.numberOfNodesInList-1)
+//                {
+//                    System.out.println(currentNode.graphNode.key);
+//                }
+//                else
+//                {
+//                    System.out.print(currentNode.graphNode.key + "--> ");
+//                }
+//                currentNode = currentNode.next;
+//            }
+//            current_component = current_component.next;
         }
+
+//        //bfs test
+        RootedTree rootedTree = dynamicGraph.bfs(nodesArray[0]);
+        rootedTree.printTree();
+        System.out.print(rootedTree.getFirstInNextLevel(rootedTree.root).value.key);
 
 
 

@@ -7,8 +7,8 @@ public class GraphNode {
     public GraphNode nextNode; // next graph node in dynamic graph
     public int color;
     public GraphNode parent;
-    public int discoveryTime;
-    public int finalTime;
+    public int distance;
+    public TreeNode treeNode;
 
 
 
@@ -20,6 +20,8 @@ public class GraphNode {
         this.adjacencyList = new DoublyLinkedList();
         this.nextNode = null;
         this.prevNode = null;
+        this.distance = -1;
+        this.treeNode = null;
 
 
 
