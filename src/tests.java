@@ -72,7 +72,7 @@ public class tests {
 //        dynamicGraph.dfs();
 //        System.out.print("");
 
-//         scc test
+        // scc test
 //        dynamicGraph.scc();
 //        LinkedListNodeOfLinkedLists current_component = dynamicGraph.scc_list.head;
 //        for (int i = 1; i<dynamicGraph.scc_list.numberOfNodesInList+1; i++)
@@ -92,12 +92,12 @@ public class tests {
 //                currentNode = currentNode.next;
 //            }
 //            current_component = current_component.next;
-        }
+//        }
 
-//        //bfs test
+        //bfs test
         RootedTree rootedTree = dynamicGraph.bfs(nodesArray[0]);
         rootedTree.printTree();
-        System.out.print(rootedTree.getFirstInNextLevel(rootedTree.root).value.key);
+//        System.out.print(rootedTree.getFirstInNextLevel(rootedTree.root).value.key);
 
 
 
