@@ -18,20 +18,32 @@ public class RootedTree {
         return null;
     }
 // start of printByLayer
-    public void printKids(TreeNode Dad){
+    public void printKids(TreeNode Dad , TreeNode FirstInNextLayer){
         TreeNode currentKid = Dad.leftChild;
         if(currentKid != null){
             while (currentKid.rightSibling != null){
-                System.out.print(currentKid.value.key + ",");
+                if(currentKid.value.key == FirstInNextLayer.value.key){
+                    System.out.print(currentKid.value.key);
+                }
+                else {
+                    System.out.print("," + currentKid.value.key);
+                }
                 currentKid = currentKid.rightSibling;
             }
-            System.out.print(currentKid.value.key + ",");
-        }
 
+            if(currentKid.value.key == FirstInNextLayer.value.key){
+                System.out.print(currentKid.value.key);
+            }
+            else {
+                System.out.print("," + currentKid.value.key);
+            }
+
+        }
     }
     public void printLayer(TreeNode firstInPreviousLayer){
+        TreeNode firstInNextLayer =  getFirstInNextLevel(firstInPreviousLayer);
         while (firstInPreviousLayer != null){
-            printKids(firstInPreviousLayer);
+            printKids(firstInPreviousLayer, firstInNextLayer);
             firstInPreviousLayer = firstInPreviousLayer.rightSibling;
         }
         System.out.println("");
@@ -66,4 +78,13 @@ public class RootedTree {
         }
 
     }
+
+    public void preorderPrint1(){
+        System.out.print(this.root.value.key);
+        if(this.root.leftChild != null){
+            preorderPrintTest(this.root.leftChild );
+        }
+    }
+
+
 }

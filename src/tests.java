@@ -2,9 +2,9 @@
 public class tests {
     public static void main(String[] args) {
         DynamicGraph dynamicGraph = new DynamicGraph();
-        GraphNode nodesArray[] = new GraphNode[7];
+        GraphNode nodesArray[] = new GraphNode[8];
 
-        for (int i = 0; i < 7 ; i++)
+        for (int i = 0; i < 8 ; i++)
         {
             nodesArray[i] = dynamicGraph.insertNode(i +1);
         }
@@ -34,7 +34,7 @@ public class tests {
 //        dynamicGraph.insertEdge(nodesArray[3],nodesArray[2]);
 //        dynamicGraph.insertEdge(nodesArray[4],nodesArray[5]);
 //        dynamicGraph.insertEdge(nodesArray[5],nodesArray[4]);
-// test 4
+// test 4 BFS test
         dynamicGraph.insertEdge(nodesArray[0],nodesArray[1]);
         dynamicGraph.insertEdge(nodesArray[2],nodesArray[1]);
         dynamicGraph.insertEdge(nodesArray[0],nodesArray[2]);
@@ -43,6 +43,7 @@ public class tests {
         dynamicGraph.insertEdge(nodesArray[2],nodesArray[6]);
         dynamicGraph.insertEdge(nodesArray[2],nodesArray[3]);
         dynamicGraph.insertEdge(nodesArray[6],nodesArray[4]);
+        dynamicGraph.insertEdge(nodesArray[5],nodesArray[7]);
 
 
         // Adjacency lists
@@ -100,9 +101,10 @@ public class tests {
 //        rootedTree.preorderPrintTest(rootedTree.root);
 //        System.out.print(rootedTree.getFirstInNextLevel(rootedTree.root).value.key);
 
-        RootedTree rootedTree = dynamicGraph.scc();
+//        RootedTree rootedTree = dynamicGraph.scc();
+        RootedTree rootedTree = dynamicGraph.bfs(nodesArray[0]);
         rootedTree.printTree();
-        rootedTree.preorderPrintTest(rootedTree.root);
+        rootedTree.preorderPrint1();
 
 
 
