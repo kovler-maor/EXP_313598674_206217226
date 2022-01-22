@@ -95,9 +95,15 @@ public class tests {
 //        }
 
         //bfs test
-        RootedTree rootedTree = dynamicGraph.bfs(nodesArray[0]);
-        rootedTree.printTree();
+//        RootedTree rootedTree = dynamicGraph.bfs(nodesArray[0]);
+//        rootedTree.printTree();
+//        rootedTree.preorderPrintTest(rootedTree.root);
 //        System.out.print(rootedTree.getFirstInNextLevel(rootedTree.root).value.key);
+
+        RootedTree rootedTree = dynamicGraph.scc();
+        rootedTree.printTree();
+        rootedTree.preorderPrintTest(rootedTree.root);
+
 
 
 

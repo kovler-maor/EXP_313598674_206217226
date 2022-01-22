@@ -17,15 +17,15 @@ public class RootedTree {
         }
         return null;
     }
-
+// start of printByLayer
     public void printKids(TreeNode Dad){
         TreeNode currentKid = Dad.leftChild;
         if(currentKid != null){
             while (currentKid.rightSibling != null){
-                System.out.print(currentKid.value.key + "---> ");
+                System.out.print(currentKid.value.key + ",");
                 currentKid = currentKid.rightSibling;
             }
-            System.out.print(currentKid.value.key);
+            System.out.print(currentKid.value.key + ",");
         }
 
     }
@@ -45,13 +45,25 @@ public class RootedTree {
             currentTreeNode = getFirstInNextLevel(currentTreeNode);
         }
     }
-
+// end of printByLayer
     public void printByLayer(DataOutputStream out){
 
 
     }
 
     public void preorderPrint(DataOutputStream out){
+
+
+    }
+
+    public void preorderPrintTest(TreeNode currentNode){
+        System.out.print("," + currentNode.value.key);
+        if (currentNode.leftChild != null){
+            preorderPrintTest(currentNode.leftChild);
+        }
+        if(currentNode.rightSibling != null){
+            preorderPrintTest(currentNode.rightSibling);
+        }
 
     }
 }
