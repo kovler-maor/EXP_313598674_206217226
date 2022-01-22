@@ -1,6 +1,6 @@
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.security.PublicKey;
+
 
 public class RootedTree {
     public TreeNode root;
@@ -12,17 +12,13 @@ public class RootedTree {
 
 
     public void printByLayer(DataOutputStream out) throws IOException {
-        //איתחול
         QueueOfRottedTree PBLqueue = new QueueOfRottedTree();
         TreeNode spaceFlag = new TreeNode(new GraphNode(-1));
         PBLqueue.Enqueue(new QueueNodeOfRottedTree(this.root));
         PBLqueue.Enqueue(new QueueNodeOfRottedTree(spaceFlag));
-        // כל עוד התור לא ריק
         while (!PBLqueue.IsEmpty()){
-            //הוצאה של איבר מן התור ובדיקה של ירידת שורה
             QueueNodeOfRottedTree currentFatherNode = PBLqueue.Dequeue();
             TreeNode currentFather = currentFatherNode.value;
-
             if(currentFatherNode.prev != null){
                 if(currentFatherNode.prev.value.value.key == -1)
                     out.writeBytes(String.valueOf(currentFather.value.key));
