@@ -3,15 +3,15 @@ import java.io.IOException;
 
 import static java.lang.System.out;
 
-public class tests {
-    public static void main(String[] args) throws IOException {
-        DynamicGraph dynamicGraph = new DynamicGraph();
-        GraphNode nodesArray[] = new GraphNode[12];
-
-        for (int i = 0; i < 12 ; i++)
-        {
-            nodesArray[i] = dynamicGraph.insertNode(i +1);
-        }
+//public class tests {
+//    public static void main(String[] args) throws IOException {
+//        DynamicGraph dynamicGraph = new DynamicGraph();
+//        GraphNode nodesArray[] = new GraphNode[12];
+//
+//        for (int i = 0; i < 12 ; i++)
+//        {
+//            nodesArray[i] = dynamicGraph.insertNode(i +1);
+//        }
 
 
 //        TreeNode treeNodesArray[] = new TreeNode[10];
@@ -127,31 +127,103 @@ public class tests {
 //        rootedTree.root.leftChild.leftChild.rightSibling = treeNodesArray[5];
 
 //        rootedTree.printTree();
-
-        dynamicGraph.insertEdge(nodesArray[0],nodesArray[1]);
-        dynamicGraph.insertEdge(nodesArray[0],nodesArray[2]);
-        dynamicGraph.insertEdge(nodesArray[0],nodesArray[3]);
-        dynamicGraph.insertEdge(nodesArray[1],nodesArray[4]);
-        dynamicGraph.insertEdge(nodesArray[1],nodesArray[5]);
-        dynamicGraph.insertEdge(nodesArray[3],nodesArray[6]);
-        dynamicGraph.insertEdge(nodesArray[5],nodesArray[7]);
-        dynamicGraph.insertEdge(nodesArray[6],nodesArray[8]);
-        dynamicGraph.insertEdge(nodesArray[7],nodesArray[9]);
-        dynamicGraph.insertEdge(nodesArray[8],nodesArray[10]);
-        dynamicGraph.insertEdge(nodesArray[10],nodesArray[11]);
-        RootedTree rootedTree = dynamicGraph.bfs(nodesArray[0]);
-        DataOutputStream outStream = new DataOutputStream(out);
-        rootedTree.printByLayer(outStream);
-        rootedTree.preorderPrint1(outStream);
-        outStream.close();
-
-
+//        Dy
+//        dynamicGraph.insertEdge(nodesArray[0],nodesArray[1]);
+//        dynamicGraph.insertEdge(nodesArray[0],nodesArray[2]);
+//        dynamicGraph.insertEdge(nodesArray[0],nodesArray[3]);
+//        dynamicGraph.insertEdge(nodesArray[1],nodesArray[4]);
+//        dynamicGraph.insertEdge(nodesArray[1],nodesArray[5]);
+//        dynamicGraph.insertEdge(nodesArray[3],nodesArray[6]);
+//        dynamicGraph.insertEdge(nodesArray[5],nodesArray[7]);
+//        dynamicGraph.insertEdge(nodesArray[6],nodesArray[8]);
+//        dynamicGraph.insertEdge(nodesArray[7],nodesArray[9]);
+//        dynamicGraph.insertEdge(nodesArray[8],nodesArray[10]);
+//        dynamicGraph.insertEdge(nodesArray[10],nodesArray[11]);
+//        RootedTree rootedTree = dynamicGraph.bfs(nodesArray[0]);
+//        DataOutputStream outStream = new DataOutputStream(out);
+//        rootedTree.printByLayer(outStream);
+//        rootedTree.preorderPrint1(outStream);
+//        outStream.close();
 
 
 
-    }
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
-}
+        class Main {
+            public static void main(String[] args) throws IOException {
+                DynamicGraph dynGraph2 = new DynamicGraph();
+
+                GraphNode n1 = dynGraph2.insertNode(1);
+                GraphNode n2 = dynGraph2.insertNode(2);
+                GraphNode n3 = dynGraph2.insertNode(3);
+                GraphNode n4 = dynGraph2.insertNode(4);
+                GraphNode n5 = dynGraph2.insertNode(5);
+                GraphNode n6 = dynGraph2.insertNode(6);
+                GraphNode n7 = dynGraph2.insertNode(7);
+                GraphNode n8 = dynGraph2.insertNode(8);
+                GraphNode n9 = dynGraph2.insertNode(9);
+
+
+                GraphEdge t1 = dynGraph2.insertEdge(n1, n2);
+                GraphEdge t2 = dynGraph2.insertEdge(n2, n3);
+                GraphEdge t3 = dynGraph2.insertEdge(n3, n4);
+                GraphEdge t4 = dynGraph2.insertEdge(n4, n1);
+                //===================
+                GraphEdge t5 = dynGraph2.insertEdge(n5, n6);
+                GraphEdge t6 = dynGraph2.insertEdge(n6, n5);
+                //===================
+                GraphEdge t7 = dynGraph2.insertEdge(n7, n8);
+                GraphEdge t8 = dynGraph2.insertEdge(n8, n9);
+                GraphEdge t9 = dynGraph2.insertEdge(n9, n7);
+                //===================
+
+
+                try (FileOutputStream fOut = new FileOutputStream("C:\\Users\\kovle\\OneDrive\\Desktop\\test.txt");
+                     DataOutputStream dOut = new DataOutputStream(fOut);) {
+
+                    RootedTree rt;
+
+                    rt = dynGraph2.bfs(n1);
+                    dOut.writeBytes("BFS TEST:" + System.lineSeparator());
+                    dOut.writeBytes("printByLayer:" + System.lineSeparator());
+                    rt.printByLayer(dOut);
+                    dOut.writeBytes(System.lineSeparator() + "preorderPrint:" + System.lineSeparator());
+                    rt.preorderPrint(dOut);
+                    dOut.writeBytes(System.lineSeparator() + System.lineSeparator());
+
+
+                    rt = dynGraph2.scc();
+                    dOut.writeBytes("SCC TEST:" + System.lineSeparator());
+                    dOut.writeBytes("printByLayer:" + System.lineSeparator());
+                    rt.printByLayer(dOut);
+                    dOut.writeBytes(System.lineSeparator() + "preorderPrint:" + System.lineSeparator());
+                    rt.preorderPrint(dOut);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+//            public static void print_adj(DynamicGraph dynGraph, GraphNode node) {
+//
+//                System.out.printf("\n### adj test, print all adj of node '%d':\n", node.getKey());
+//
+//                while (node.NeighborsD.headOfList != null) {
+//                    System.out.printf("%d", node.NeighborsD.headOfList.value.getKey());
+//                    if (node.NeighborsD.headOfList.nextDDL != null) {
+//                        node.NeighborsD.headOfList = node.NeighborsD.headOfList.nextDDL;
+//                    } else {
+//                        return;
+//                    }
+//                }
+//            }
+        }
+
+
 
 
 

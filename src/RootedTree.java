@@ -52,10 +52,6 @@ public class RootedTree {
     }
 
 
-    public void preorderPrint(DataOutputStream out){
-
-
-    }
 
     public void preorderPrintTest(TreeNode currentNode , DataOutputStream out) throws IOException {
         out.writeBytes("," + currentNode.value.key);
@@ -68,7 +64,7 @@ public class RootedTree {
 
     }
 
-    public void preorderPrint1(DataOutputStream out) throws IOException {
+    public void preorderPrint(DataOutputStream out) throws IOException {
         out.writeBytes(String.valueOf(this.root.value.key));
         if(this.root.leftChild != null){
             preorderPrintTest(this.root.leftChild, out);
