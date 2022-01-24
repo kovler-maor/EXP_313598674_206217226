@@ -16,7 +16,7 @@ public class RootedTree {
         TreeNode spaceFlag = new TreeNode(new GraphNode(-1));
         PBLqueue.Enqueue(new QueueNodeOfRottedTree(this.root));
         PBLqueue.Enqueue(new QueueNodeOfRottedTree(spaceFlag));
-        while (PBLqueue.Head.value.value.key == -1 && PBLqueue.Head.prev == null){
+        while (PBLqueue.Head.value.value.key != -1 && PBLqueue.Head.prev != null){
             QueueNodeOfRottedTree currentFatherNode = PBLqueue.Dequeue();
             TreeNode currentFather = currentFatherNode.value;
             if(currentFatherNode.prev != null){
@@ -52,25 +52,6 @@ public class RootedTree {
     }
 
 
-
-    public void preorderPrintTest(TreeNode currentNode , DataOutputStream out) throws IOException {
-        out.writeBytes("," + currentNode.value.key);
-        if (currentNode.leftChild != null){
-            preorderPrintTest(currentNode.leftChild, out);
-        }
-        if(currentNode.rightSibling != null){
-            preorderPrintTest(currentNode.rightSibling, out);
-        }
-
-    }
-
-//    public void preorderPrint(DataOutputStream out) throws IOException {
-//        out.writeBytes(String.valueOf(this.root.value.key));
-//        if(this.root.leftChild != null){
-//            preorderPrintTest(this.root.leftChild, out);
-//        }
-//    }
-
     public void preorderPrint(DataOutputStream out) throws IOException {
         StackTree stackTree = new StackTree();
         stackTree.Push(new LinkedListNodeTree(this.root));
@@ -81,11 +62,6 @@ public class RootedTree {
                 stackTree.Push(new LinkedListNodeTree(currentChild));
                 currentChild = currentChild.rightSibling;
             }
-//            TreeNode currentSibling = current.treeNode.rightSibling;
-//            while (currentSibling != null){
-//                stackTree.Push(new LinkedListNodeTree(currentSibling));
-//                currentSibling = currentSibling.rightSibling;
-//            }
             if(!stackTree.IsEmpty()){
                 out.writeBytes(current.treeNode.value.key + ",");
             }

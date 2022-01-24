@@ -218,6 +218,7 @@ public class DynamicGraph
 
     public RootedTree scc()
     {
+        this.scc_list.EmptyList();
         dfs();
         TransposeGraph();
         dfs2();
@@ -232,20 +233,20 @@ public class DynamicGraph
                 LinkedListNode linkedListCurrentSon = currentScc.doublyLinkedList.head;
                 TreeNode currentSon = new TreeNode(linkedListCurrentSon.graphNode);
                 dfs_rootedTree.root.AddChild(currentSon);
-                if(linkedListCurrentSon.next != null){
+                while (linkedListCurrentSon != null){
                     LinkedListNode linkedListCurrentGrandSon = linkedListCurrentSon.next;
-                    TreeNode currentGrandSon = new TreeNode(linkedListCurrentGrandSon.graphNode);
-                    for(int j = 0; j < currentScc.doublyLinkedList.numberOfNodesInList - 1; j++){
+                    if(linkedListCurrentGrandSon != null){
+                        TreeNode currentGrandSon = new TreeNode(linkedListCurrentGrandSon.graphNode);
                         currentSon.AddChild(currentGrandSon);
-                        linkedListCurrentGrandSon = linkedListCurrentGrandSon.next;
-                        if(linkedListCurrentGrandSon != null){
-                            currentGrandSon = new TreeNode(linkedListCurrentGrandSon.graphNode);
-                        }
+                        currentSon = currentGrandSon;
                     }
+                    linkedListCurrentSon = linkedListCurrentSon.next;
+
                 }
                 currentScc = currentScc.next;
             }
         }
+        TransposeGraph();
         return dfs_rootedTree;
     }
 
